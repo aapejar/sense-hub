@@ -14,7 +14,133 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      devices: {
+        Row: {
+          created_at: string
+          description: string | null
+          device_name: string
+          id: string
+          is_online: boolean
+          last_seen: string | null
+          latitude: number | null
+          location: string | null
+          longitude: number | null
+          node_number: number | null
+          serial_number: string | null
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          device_name: string
+          id?: string
+          is_online?: boolean
+          last_seen?: string | null
+          latitude?: number | null
+          location?: string | null
+          longitude?: number | null
+          node_number?: number | null
+          serial_number?: string | null
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          device_name?: string
+          id?: string
+          is_online?: boolean
+          last_seen?: string | null
+          latitude?: number | null
+          location?: string | null
+          longitude?: number | null
+          node_number?: number | null
+          serial_number?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      sensor_readings: {
+        Row: {
+          created_at: string
+          device_id: string
+          humidity: number | null
+          id: string
+          status: string | null
+          temperature: number | null
+          timestamp: string
+          wifi_rssi: number | null
+        }
+        Insert: {
+          created_at?: string
+          device_id: string
+          humidity?: number | null
+          id?: string
+          status?: string | null
+          temperature?: number | null
+          timestamp?: string
+          wifi_rssi?: number | null
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          humidity?: number | null
+          id?: string
+          status?: string | null
+          temperature?: number | null
+          timestamp?: string
+          wifi_rssi?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sensor_readings_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      sensors: {
+        Row: {
+          created_at: string
+          device_id: string
+          id: string
+          max_value: number | null
+          min_value: number | null
+          sensor_name: string
+          sensor_type: string
+          unit: string
+        }
+        Insert: {
+          created_at?: string
+          device_id: string
+          id?: string
+          max_value?: number | null
+          min_value?: number | null
+          sensor_name: string
+          sensor_type: string
+          unit: string
+        }
+        Update: {
+          created_at?: string
+          device_id?: string
+          id?: string
+          max_value?: number | null
+          min_value?: number | null
+          sensor_name?: string
+          sensor_type?: string
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "sensors_device_id_fkey"
+            columns: ["device_id"]
+            isOneToOne: false
+            referencedRelation: "devices"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
